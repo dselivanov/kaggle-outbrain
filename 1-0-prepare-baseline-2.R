@@ -42,4 +42,4 @@ res = foreach(chunk = 0L:(N_PART - 1L), .inorder = FALSE, .multicombine = TRUE,
                 message(sprintf("%s chunk %03d done", Sys.time(), chunk))
               }
 
-# unlink(VIEWS_INTERMEDIATE_DIR, recursive = TRUE)
+unlink(VIEWS_INTERMEDIATE_DIR, recursive = TRUE)
