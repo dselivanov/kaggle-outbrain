@@ -23,17 +23,17 @@ for(i in 0L:(N_PART - 1L)) {
   # TRAIN
   dt_temp = dt_chunk[!is.na(clicked) & cv == FALSE]
   X = create_feature_matrix(dt_temp, features_with_interactions, events_h_size)
-  chunk = list(X = X, y = dt_temp$clicked, dt = dt_temp[, .(uuid, document_id, promo_document_id, campaign_id, advertiser_id, display_id)])
+  chunk = list(X = X, y = dt_temp$clicked, dt = dt_temp[, .(uuid, document_id, promo_document_id, campaign_id, advertiser_id, display_id, ad_id)])
   save_rds_compressed(chunk, sprintf("%s/%03d.rds", RDS_BASELINE_1_MATRIX_DIR_TRAIN, i))
   # CV
   dt_temp = dt_chunk[!is.na(clicked) & cv == TRUE]
   X = create_feature_matrix(dt_temp, features_with_interactions, events_h_size)
-  chunk = list(X = X, y = dt_temp$clicked, dt = dt_temp[, .(uuid, document_id, promo_document_id, campaign_id, advertiser_id, display_id)])
+  chunk = list(X = X, y = dt_temp$clicked, dt = dt_temp[, .(uuid, document_id, promo_document_id, campaign_id, advertiser_id, display_id, ad_id)])
   save_rds_compressed(chunk, sprintf("%s/%03d.rds", RDS_BASELINE_1_MATRIX_DIR_CV, i))
   # TEST
   dt_temp = dt_chunk[is.na(clicked)]
   X = create_feature_matrix(dt_temp, features_with_interactions, events_h_size)
-  chunk = list(X = X, y = dt_temp$clicked, dt = dt_temp[, .(uuid, document_id, promo_document_id, campaign_id, advertiser_id, display_id)])
+  chunk = list(X = X, y = dt_temp$clicked, dt = dt_temp[, .(uuid, document_id, promo_document_id, campaign_id, advertiser_id, display_id, ad_id)])
   save_rds_compressed(chunk, sprintf("%s/%03d.rds", RDS_BASELINE_1_MATRIX_DIR_TEST, i))
   
   message(sprintf("%s chunk %03d done", Sys.time(), i))
