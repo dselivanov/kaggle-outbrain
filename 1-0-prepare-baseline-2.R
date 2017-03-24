@@ -10,6 +10,7 @@ uuid_events = unique(events$uuid); rm(events)
 colnames = c("uuid", "document_id", "timestamp", "platform", "geo_location", "traffic_source")
 fls = list.files(PAGE_VIEWS_CHUNKS_PATH, full.names = TRUE)
 foreach(f = fls, .inorder = F, .combine = c, .multicombine = TRUE,
+        .packages = c("data.table", "magrittr", "text2vec"),
         .options.multicore = list(preschedule = FALSE)) %dopar% {
           if(basename(f) == "xaa.gz") header = TRUE else  header = FALSE
           # will only need c("uuid", "document_id", "timestamp") -  first 3 columns
@@ -24,6 +25,7 @@ foreach(f = fls, .inorder = F, .combine = c, .multicombine = TRUE,
             out = sprintf("%s/%03d/%s.rds", VIEWS_INTERMEDIATE_DIR, i, basename(f))
             save_rds_compressed(dt[uuid %% N_PART == i, ], out)
           }
+          rm(dt);gc();
           message(sprintf("%s chunk %s done", Sys.time(), basename(f)))
         }
 
@@ -31,7 +33,8 @@ foreach(f = fls, .inorder = F, .combine = c, .multicombine = TRUE,
 #------------------------------------------------------------------------------------------------
 
 res = foreach(chunk = 0L:(N_PART - 1L), .inorder = FALSE, .multicombine = TRUE,
-              .options.multicore = list(preschedule = FALSE)) %dopar% {
+              .options.multicore = list(preschedule = FALSE), 
+              .packages = c("data.table", "magrittr")) %dopar% {
                 dir = sprintf("%s/%03d", VIEWS_INTERMEDIATE_DIR, chunk)
                 fls = list.files(dir)
                 dt = fls %>% 

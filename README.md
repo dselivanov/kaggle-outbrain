@@ -21,6 +21,7 @@ Here we won't use `page_views` - only data from `clicks_train.csv.zip`, `events.
 1. `Rscript 0-0-prepare-baseline-1.R` - prepares data `clicks`, `events`, `promo` files.
 1. `Rscript 0-1-prepare-baseline-1.R` - creates ans saves model matrix to disk (**partition by `uuid`**).
 1. `Rscript 0-2-run-baseline-1.R` - fit FTRL to model matrix chunks from step above.
+1. `Rscript 0-3-predict-baseline-1.R` - generate submission file (without leak)
 
 Rough timings provided at the top of each file.
 
@@ -30,6 +31,8 @@ Here we won't use `page_views` - only data from `clicks_train.csv.zip`, `events.
 
 1. `Rscript 1-0-prepare-baseline-2.R` - preprocess `page_views` - filter not relevant page views and **partition by `uuid`**.
 1. `Rscript 1-1-prepare-baseline-2.R` - creates ans saves model matrix to disk (incluing hashed interactions between page views and advertisement and user context).
+1. `Rscript 1-1-extract-leak.R` - extracts leak
 1. `Rscript 1-2-run-baseline-2.R` - fit FTRL to model matrix chunks from step above.
+1. `Rscript 1-3-predict-baseline-2.R` - generate two submission files - with and wothout leak
 
 Rough timings provided at the top of each file.

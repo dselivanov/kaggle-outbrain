@@ -17,6 +17,18 @@ if(!dir.exists(RDS_DATA_PATH))
 PAGE_VIEWS_CHUNKS_PATH = "~/projects/kaggle/outbrain/data/raw/page_views_chunks/"
 
 #--------------------------------------------------------------------------------------------------------
+# LEAK
+#--------------------------------------------------------------------------------------------------------
+LEAK_PATH = sprintf("%s/leak.rds", RDS_DATA_PATH)
+#--------------------------------------------------------------------------------------------------------
+# MODEL SAVE PATHS 
+#--------------------------------------------------------------------------------------------------------
+PATH_MODEL_1 = sprintf("%s/model_1.rds", RDS_DATA_PATH)
+PATH_MODEL_1_SUBMISSION_FILE = sprintf("%s/model_1_submission.csv", RAW_DATA_PATH)
+PATH_MODEL_2 = sprintf("%s/model_2.rds", RDS_DATA_PATH)
+PATH_MODEL_2_SUBMISSION_FILE = sprintf("%s/model_2_submission.csv", RAW_DATA_PATH)
+PATH_MODEL_2_SUBMISSION_FILE_LEAK = sprintf("%s/model_2_submission_leak.csv", RAW_DATA_PATH)
+#--------------------------------------------------------------------------------------------------------
 # PAGE VIEWS processing folders
 #--------------------------------------------------------------------------------------------------------
 VIEWS_INTERMEDIATE_DIR = sprintf("%s/views_filter/", RDS_DATA_PATH)

@@ -6,7 +6,14 @@ library(methods)
 library(Matrix)
 library(magrittr)
 
-registerDoParallel(N_CORES_PREPROCSESSING)
+if (.Platform$OS.type != "unix") {
+  cl <- makePSOCKcluster(N_CORES_PREPROCSESSING)
+  registerDoParallel(cl)
+  message(sprintf("Detected Windows platform. Cluster with %d cores and name \"cl\"  registred. 
+                  Stop it with `stopCluster(cl)` at the end.", N_CORES_PREPROCSESSING))
+} else {
+  registerDoParallel(N_CORES_PREPROCSESSING)
+}
 
 fread_zip = function( file , ...) {
   fn = basename(file)
